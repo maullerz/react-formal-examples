@@ -1,0 +1,6 @@
+.links {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: flex-start;
+}
