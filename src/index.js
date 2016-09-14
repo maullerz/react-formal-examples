@@ -3,22 +3,22 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 
-import App from './App';
-import Main from './components/Main';
-import Examples from './components/Examples';
+import configureStore from './redux-store';
+import {
+  App,
+  Welcome,
+  Examples,
+} from './routes';
 import AuthForm from './components/Forms/AuthForm';
 import ValidationsForm from './components/Forms/ValidationsForm';
-import './index.css';
-
-import configureStore from './redux-store';
 
 
 const store = configureStore();
 
 const routes = (
   <Route name="app" path="/" component={App}>
-    <IndexRoute component={Main} />
-    <Route path='main' component={Main}/>
+    <IndexRoute component={Welcome} />
+    <Route path='welcome' component={Welcome}/>
 
     <Route path='examples' component={Examples}>
       <Route path='auth' component={AuthForm} />

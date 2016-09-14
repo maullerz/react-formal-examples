@@ -6,6 +6,8 @@
     "react-scripts": "0.4.0"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
+    "lodash": "^4.15.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-formal": "^0.20.4",

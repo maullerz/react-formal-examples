@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-// import './AuthForm.css';
+
+import { FormSection, FormRow } from '../Common';
+
 
 class AuthForm extends Component {
   render() {
     return (
-      <div className="AuthForm">
-        {'AuthForm'}
+      <div>
+        <h2>AUTH FORM</h2>
+
+        <FormSection>
+
+        </FormSection>
       </div>
     );
   }

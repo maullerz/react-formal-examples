@@ -6,7 +6,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>React - Formal Examples</h2>
+          <h2>React-Formal Examples</h2>
         </div>
         <div className="App-intro">
           {this.props.children}

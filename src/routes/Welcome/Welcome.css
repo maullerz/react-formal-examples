@@ -1,0 +1,23 @@
+.page {
+  display: flex;
+  padding: 30px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  margin-right: 30px;
+}
+
+a {
+  margin: 10px 0;
+}
+
+.content {
+  padding: 30px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.08), 0px 2px 4px 0px rgba(131,131,131,0.30);
+  border-radius: 3px;
+}

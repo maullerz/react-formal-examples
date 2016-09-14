@@ -1,0 +1,7 @@
+.form-section {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  margin-bottom: 26px;
+  text-align: left;
+}

@@ -6,10 +6,10 @@ class Examples extends Component {
   render() {
     return (
       <div className='page'>
-        <ul className='links'>
-          <li><Link to='/examples/auth'>Auth</Link></li>
-          <li><Link to='/examples/validations'>Validations</Link></li>
-        </ul>
+        <div className='links'>
+          <Link to='/examples/auth'>Auth</Link>
+          <Link to='/examples/validations'>Validations</Link>
+        </div>
         <div className='content'>
           {this.props.children}
         </div>
