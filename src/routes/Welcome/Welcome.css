@@ -15,9 +15,23 @@ a {
   margin: 10px 0;
 }
 
-.content {
+.no-underline {
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+}
+
+.welcome-text {
+  width: 100%;
   padding: 30px;
   background: #FFFFFF;
   box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.08), 0px 2px 4px 0px rgba(131,131,131,0.30);
   border-radius: 3px;
+
+  font-size: 16px;
+  font-family: 'Helvetica Neue';
+}
+
+.welcome-text > div {
+  margin-bottom: 50px;
 }

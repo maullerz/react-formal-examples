@@ -11,10 +11,21 @@
 
 .App-header {
   background-color: #2f2f2f;
-  font-weight: bold;
-  color: white;
-  padding: 0 20px;
+  padding: 0 30px;
   display: flex;
+  justify-content: space-between;
+}
+
+.App-header > a {
+  color: #777;
+  line-height: 20px;
+  text-decoration: none;
+  font-size: 16px;
+  font-family: 'Helvetica Neue';
+}
+
+.App-header > a:hover {
+  color: white;
 }
 
 .App-intro {
