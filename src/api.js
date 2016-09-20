@@ -24,10 +24,11 @@ const SUCCESS_RESULT = {
 
 const processRequest = (params, resolve, reject) => {
   return () => {
-    // show API failed behavior
-    // const apiFail = Math.random() < 0.1;
-    // if (apiFail) return reject(API_FAIL_RESULT);
+    // 1. show API failed behavior
+    const apiFail = Math.random() < 0.1;
+    if (false && apiFail) return reject(API_FAIL_RESULT);
 
+    // 2. Fail on server validation
     const validationFail = Math.random() < 0.5;
     if (validationFail) return reject(VALIDATION_FAIL_RESULT);
 

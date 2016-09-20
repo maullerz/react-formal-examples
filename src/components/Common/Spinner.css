@@ -1,0 +1,87 @@
+@-moz-keyframes spinner {
+  0% {
+    background: color(#48F2FF a(32%));
+  }
+  10% {
+    background: #39AFBC;
+  }
+  40% {
+    background: color(#48F2FF a(32%));
+  }
+}
+@-webkit-keyframes spinner {
+  0% {
+    background: color(#48F2FF a(32%));
+  }
+  10% {
+    background: #39AFBC;
+  }
+  40% {
+    background: color(#48F2FF a(32%));
+  }
+}
+@keyframes spinner {
+  0% {
+    background: color(#48F2FF a(32%));
+  }
+  10% {
+    background: #39AFBC;
+  }
+  40% {
+    background: color(#48F2FF a(32%));
+  }
+}
+/* :not(:required) hides these rules from IE9 and below */
+
+.wide {
+  display: block !important;
+  margin: 10px auto !important;
+}
+
+.field {
+  display: block !important;
+  margin: 18px 40px !important;
+}
+
+.fullPage {
+  display: block !important;
+  position: fixed !important;
+  top: 50%;
+  left: calc(50% - 26px);
+}
+
+.spinner:not(:required) {
+  -moz-animation: spinner 700ms 300ms infinite ease-out;
+  -webkit-animation: spinner 700ms 300ms infinite ease-out;
+  animation: spinner 700ms 300ms infinite ease-out;
+  background: color(#48F2FF a(32%));
+  display: inline-block;
+  position: relative;
+  text-indent: -9999px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 20px;
+}
+.spinner:not(:required):before, .spinner:not(:required):after {
+  background: color(#48F2FF a(32%));
+  content: '\x200B';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+}
+.spinner:not(:required):before {
+  -moz-animation: spinner 700ms 150ms infinite ease-out;
+  -webkit-animation: spinner 700ms 150ms infinite ease-out;
+  animation: spinner 700ms 150ms infinite ease-out;
+  left: -20px;
+}
+.spinner:not(:required):after {
+  -moz-animation: spinner 700ms 450ms infinite ease-out;
+  -webkit-animation: spinner 700ms 450ms infinite ease-out;
+  animation: spinner 700ms 450ms infinite ease-out;
+  right: -20px;
+}

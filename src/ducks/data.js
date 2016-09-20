@@ -4,11 +4,23 @@ const ITEM_GET = 'ITEM_GET';
 const ITEM_GET_SUCCESS = 'ITEM_GET_SUCCESS';
 const ITEM_GET_FAILURE = 'ITEM_GET_FAILURE';
 
+const ITEM_UPDATE = 'ITEM_UPDATE';
+const ITEM_UPDATE_SUCCESS = 'ITEM_UPDATE_SUCCESS';
+const ITEM_UPDATE_FAILURE = 'ITEM_UPDATE_FAILURE';
+
 
 export function getItemData(id) {
   const params = id ? { id } : null;
   return dispatch => apiRequest('get', 'items/get',
     [ITEM_GET, ITEM_GET_SUCCESS, ITEM_GET_FAILURE], dispatch,
+    params
+  );
+}
+
+export function itemUpdate(id, data) {
+  const params = { id, data };
+  return dispatch => apiRequest('post', 'items/update',
+    [ITEM_UPDATE, ITEM_UPDATE_SUCCESS, ITEM_UPDATE_FAILURE], dispatch,
     params
   );
 }
@@ -50,6 +62,30 @@ export default function (state = initialState, action) {
         itemLoading: false,
         itemLoaded: false,
         itemErrors: action.errors,
+      };
+
+
+    case ITEM_UPDATE:
+      return {
+        ...state,
+        updateLoading: true,
+        updateLoaded: false,
+        updateErrors: [],
+      };
+
+    case ITEM_UPDATE_SUCCESS:
+      return {
+        ...state,
+        updateLoading: false,
+        updateLoaded: true,
+      };
+
+    case ITEM_UPDATE_FAILURE:
+      return {
+        ...state,
+        updateLoading: false,
+        updateLoaded: false,
+        updateErrors: action.errors,
       };
 
     default:

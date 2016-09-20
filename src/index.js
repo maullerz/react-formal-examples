@@ -21,6 +21,7 @@ const routes = (
     <Route path='welcome' component={Welcome}/>
 
     <Route path='examples' component={Examples}>
+      <IndexRoute component={AuthForm} />
       <Route path='auth' component={AuthForm} />
       <Route path='validations' component={ValidationsForm} />
     </Route>

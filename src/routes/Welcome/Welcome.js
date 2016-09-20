@@ -23,6 +23,7 @@ class Welcome extends Component {
           <Link to='/examples'>Examples</Link>
         </div>
         <div className='welcome-text'>
+          <div>Various examples of using the awesome library:</div>
           <h1>React&nbsp;<BowTie />&nbsp;Formal</h1>
           <div>Classy HTML form management</div>
           <a href='https://github.com/jquense/react-formal'>Github</a>

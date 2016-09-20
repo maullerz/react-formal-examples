@@ -10,7 +10,7 @@ class AuthForm extends Component {
         <h2>AUTH FORM</h2>
 
         <FormSection>
-
+          <FormRow label='TODO' value='Sign in / Sign up' />
         </FormSection>
       </div>
     );

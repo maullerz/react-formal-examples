@@ -8,7 +8,6 @@ import './FormRow.css';
 
 
 const getState = state => ({
-  itemId: state.form.itemId,
   errors: state.form.errors,
 });
 
@@ -31,24 +30,18 @@ class FormRow extends Component {
     );
   }
 }
-
 export default connect(getState)(FormRow);
 
 
-
-
 function getInputType(props) {
-  const { type, value, field, wide, items, placeholder, errors, ...otherProps } = props;
+  const { type, value, field, placeholder, ...otherProps } = props;
+  const pl = placeholder || '...';
 
-  if (isObject(type)) return <Field type={type} name={field} {...props} />;
+  if (isObject(type)) return <Field type={type} name={field} {...otherProps} />;
 
   function handleChange(e) {
-    props.onChange && props.onChange(props.field, e.target.value, props.index);
+    if (props.onChange) props.onChange(props.field, e.target.value, props.index);
   }
-
-  const newField = !props.itemId;
-  let className;
-  const pl = placeholder || '...';
 
   switch (type) {
     case 'raw-edit':

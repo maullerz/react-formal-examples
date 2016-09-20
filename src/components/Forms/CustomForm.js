@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-// import cn from 'classnames';
 import Form from 'react-formal';
 import yup from 'yup';
-import { each, clone, map, isArray, isObject, debounce } from 'lodash';
+import { debounce } from 'lodash';
 
-import { setValidationErrors, clearValidationErrors, setFormItemId, clearFormItemId } from '../../ducks/form';
+import { setValidationErrors, clearValidationErrors } from '../../ducks/form';
+import { SubmitButton } from '../Common/Button';
 import './CustomForm.css';
 
 
@@ -29,7 +29,6 @@ export default class CustomCard extends Component {
     this.changeForm = this.changeForm.bind(this);
     this.preSubmit = this.preSubmit.bind(this);
     this.onInvalidSubmit = this.onInvalidSubmit.bind(this);
-    this.onErrors = this.onErrors.bind(this);
     this.debouncedFormChangeHandler = debounce(this.handleFormChange, VALIDATION_DELAY).bind(this);
   }
 
@@ -44,67 +43,34 @@ export default class CustomCard extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.loading && nextProps.loaded) {
-
-      // TODO: save initial form values in different state-value
-      // ...
-
       const data = this.schema.cast(nextProps.data);
       this.setState({ formData: data });
     }
 
-    if (this.props.editLoading && this.state.changed && nextProps.editSuccess) {
+    if (this.props.updateLoading && this.state.changed && nextProps.updateSuccess) {
       this.setState({ changed: false });
-      this.props.clearValidationErrors && this.props.clearValidationErrors();
+      this.props.clearValidationErrors();
       this.changedFields = [];
     }
   }
 
   preSubmit(data) {
     if (!this.state.changed) return;
-    // if (this.props.setPopupErrors) this.props.setPopupErrors([]);
     this.processValidationOnSubmit(data, this.submit);
   }
 
-  changeForm(values, fields) {
-    // TODO here we need to check for changes => Enable/Disable saving & ConfirmExitWithoutSave & etc
-    // assert(fields.length === 1);
-    if (fields.length > 1) console.error('more than one field updated in Form:', fields.length);
-
-    const currForm = this.state.formData;
-    const path = fields[0];
-
-    // if (__DEV__) console.log('changeForm:', path, values[path]);
-
-    // воркэраунд для того, чтобы отправлять на обновление только измененные поля
-    if (this.getValueByPath(values, path) !== this.getValueByPath(currForm, path)) {
-      const updatedValues = clone(values, true);
-      each(fields, field => {
-        // updatedValues[field] = this.anyValueToId(values[field]);
-        updatedValues[field] = this.getValueByPath(values, field);
-        if (this.changedFields.indexOf(field) < 0) this.changedFields.push(field);
-      });
-
-      // exec debounced validation
-      this.debouncedFormChangeHandler(updatedValues);
-
-      this.setState({ formData: updatedValues, changed: true });
-    }
+  changeForm(updatedValues, changedFields) {
+    // console.log(`${changedFields} changed:`, updatedValues);
+    this.debouncedFormChangeHandler(updatedValues);
+    this.setState({ formData: updatedValues, changed: true });
   }
 
   handleFormChange(updatedValues) {
-    // Два варианта:
-    // 1. abortEarly: false
-    // всегда валидируем всю форму до конца и перезаписываем errors в стейте
-    // и тогда нам нужен доп метод для парсинга ошибок из ValidationError['inner']
-    //
-    // 2. получаем только первую встреченную ошибку валидации и ...
-    // а если у нас после инвалид-сабмита было подсвечено много полей?
-    // получается эту ошибку мы должны мержить в стейт
-
+    // https://github.com/jquense/yup#mixedvalidatevalue-any-options-object-callback-function-promiseany-validationerror
     this.schema.validate(updatedValues, { abortEarly: false })
       .then(value => this.props.clearValidationErrors())
       .catch(validationErr => {
-        this.props.setValidationErrors && this.props.setValidationErrors(validationErr);
+        this.props.setValidationErrors(validationErr);
       });
   }
 
@@ -115,30 +81,22 @@ export default class CustomCard extends Component {
   onInvalidSubmit(errors) {
     const message = this.getErrorsMsg(errors);
     // this.props.notify(NOTIFICATION_ERROR, message);
-    this.props.setValidationErrors && this.props.setValidationErrors(errors);
+    console.log('validation on submit errors:', message);
+    this.props.setValidationErrors(errors);
   }
 
   processValidationOnSubmit(data, onValidated) {
     let validatedData = null;
     this.schema.validate(data)
       .then(value => {
-        // console.log('validated data:', value);
         this.setState({ formData: value });
         validatedData = value;
-        // this.submit(validatedData);
         onValidated.call(this, validatedData);
       })
       .catch(err => {
         console.log('processValidationOnSubmit:Error:', err);
         return null;
       });
-  }
-
-  onErrors(errors) {
-    // nothing here now
-    // console.error('onErrors(errors)', errors);
-    // FIXME: react-formal issue
-    // this.props.setValidationErrors && this.props.setValidationErrors(errors);
   }
 
   submit() {
@@ -159,7 +117,6 @@ export default class CustomCard extends Component {
         value={this.state.formData}
         onChange={this.changeForm}
         onSubmit={this.preSubmit}
-        onError={this.onErrors}
         onInvalidSubmit={this.onInvalidSubmit}
         delay={300}
       >
@@ -169,7 +126,7 @@ export default class CustomCard extends Component {
   }
 
   render() {
-    const { formData } = this.state;
+    const { changed } = this.state;
     const formIsLoading = this.props.loading;
 
     return this.renderForm(
@@ -177,7 +134,7 @@ export default class CustomCard extends Component {
         {formIsLoading ? <EmptyContent /> : this.renderContent()}
 
         <div className='footer'>
-          <button type='submit'>SUBMIT</button>
+          <SubmitButton disabled={!changed} loading={this.props.updateLoading} />
         </div>
       </div>
     );
@@ -195,16 +152,6 @@ const row = (
     <div className='elem' />
   </div>
 );
-
-
-function EmptyHeader(props) {
-  return (
-    <div className='emptyHeader'>
-      <div className='elemBig' />
-      <div className='elem' />
-    </div>
-  );
-}
 
 function EmptyContent(props) {
   return (
