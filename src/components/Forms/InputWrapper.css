@@ -1,0 +1,23 @@
+.wrapper {
+  margin-bottom: 20px;
+}
+
+.wrapper.hasError {
+  margin-bottom: 15px;
+}
+
+.wrapper.hasError  > input {
+  color: #EB3737;
+  border: 1px solid #FF4B4B;
+}
+
+.label {
+  @mixin fontRegular 14;
+  color: color(#696e73 a(0.5));
+}
+
+.error {
+  @mixin fontRegular 14;
+  color: #EB3737;
+  margin-top: 5px;
+}
