@@ -1,8 +1,11 @@
 {
   "name": "react-formal-example",
+  "homepage": "http://maullerz.github.io/react-formal-examples",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-gh-pages": "^0.5.4",
     "react-scripts": "0.4.0"
   },
   "dependencies": {
