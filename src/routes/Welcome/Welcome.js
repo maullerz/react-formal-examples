@@ -21,12 +21,17 @@ class Welcome extends Component {
       <div className='page'>
         <div className='links'>
           <Link to='/examples'>Examples</Link>
+          <a href="http://jquense.github.io/react-formal/#/api" target='_blank'>
+            {'React-Formal Documentation'}
+          </a>
         </div>
         <div className='welcome-text'>
           <div>Various examples of using the awesome library:</div>
           <h1>React&nbsp;<BowTie />&nbsp;Formal</h1>
           <div>Classy HTML form management</div>
-          <a href='https://github.com/jquense/react-formal'>Github</a>
+          <a href='https://github.com/jquense/react-formal' target='_blank'>
+            {'Github'}
+          </a>
         </div>
       </div>
     );

@@ -1,9 +1,10 @@
 {
   "name": "react-formal-example",
-  "homepage": "http://maullerz.github.io/",
+  "homepage": "http://maullerz.github.io/react-formal-examples",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "gh-pages": "^0.11.0",
     "gulp": "^3.9.1",
     "gulp-gh-pages": "^0.5.4",
     "react-scripts": "0.4.0"
@@ -24,6 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
