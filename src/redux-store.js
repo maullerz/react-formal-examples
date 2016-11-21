@@ -44,14 +44,5 @@ export default function configureStore(initialState) {
     );
   }
 
-
-  if (module.hot) {
-    module.hot.accept('./ducks/index', () => {
-      const nextRootReducer = require('./ducks/index');
-
-      store.replaceReducer(nextRootReducer);
-    });
-  }
-
   return store;
 }

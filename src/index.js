@@ -37,3 +37,15 @@ ReactDOM.render((
     </Provider>
   ), document.getElementById('root')
 );
+
+
+if (module.hot) {
+  module.hot.accept();
+
+  // fix hot module replacement for reducers
+  module.hot.accept('./ducks/index', () => {
+    const nextRootReducer = require('./ducks/index');
+
+    store.replaceReducer(nextRootReducer);
+  });
+}
